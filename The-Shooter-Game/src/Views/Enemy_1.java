@@ -25,7 +25,7 @@ public class Enemy_1 {
 	}
 	
 	public void load() {
-		ImageIcon referencia = new ImageIcon("src\\img\\inimigo_1.jpeg");
+		ImageIcon referencia = new ImageIcon(getClass().getResource("/img/inimigo_1.jpeg"));
 		skinDoTiro = referencia.getImage();
 		
 		this.altura = skinDoTiro.getHeight(null);

@@ -25,7 +25,7 @@ public class Tiro {
 	}
 	
 	public void load() {
-		ImageIcon referencia = new ImageIcon("src\\img\\tecnica-azul-satoru-gojo.png");
+		ImageIcon referencia = new ImageIcon(getClass().getResource("/img/tecnica-azul-satoru-gojo.png"));
 		skinDoTiro = referencia.getImage();
 		
 		this.altura = skinDoTiro.getHeight(null);

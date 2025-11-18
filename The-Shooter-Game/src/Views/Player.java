@@ -15,14 +15,18 @@ public class Player {
 	private int altura, largura;
 	private List <Tiro> tiros;
 	private boolean isVisivel;
-	
+	public boolean reiniciar_fase = true;
 	boolean teclaDpressionada = false;
 	boolean teclaKpressionada = false;
 	boolean teclaApressionada = false;
 	boolean teclaWpressionada = false;
 	boolean teclaSpressionada = false;
 	
+	
+	
 	public Player() {
+		
+		
 		this.x= 300;
 		this.y=550;
 		
@@ -32,7 +36,7 @@ public class Player {
 	}
 	
 	public void load() {
-		ImageIcon referencia = new ImageIcon("src\\img\\Satoru-Gojo.png");
+		ImageIcon referencia = new ImageIcon(getClass().getResource("/img/Satoru-Gojo.png"));
 		imagem = referencia.getImage();
 		
 		altura = imagem.getHeight(null);
@@ -56,6 +60,7 @@ public class Player {
 	
 	public void keyPressed(KeyEvent tecla) {
 		int codigo = tecla.getKeyCode();
+		
 		
 		if(codigo == KeyEvent.VK_J) {
 			tiroSimples();
@@ -109,9 +114,14 @@ public class Player {
 		}
 	}
 	
-	public void keyRelease(KeyEvent tecla) {
+	public void keyReleased(KeyEvent tecla) {
 		int codigo = tecla.getKeyCode();
 		
+		if(codigo == KeyEvent.VK_P) {
+			reiniciar_fase = false;
+			System.out.println("Soltado o P");
+			System.out.println(reiniciar_fase);
+		}
 		if(codigo == KeyEvent.VK_W) {
 			dy = 0;
 			teclaWpressionada = false;
@@ -135,6 +145,7 @@ public class Player {
 		if(codigo == KeyEvent.VK_K) {
 			dx = 0;
 			teclaKpressionada = false;
+			
 		}
 		
 	}

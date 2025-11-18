@@ -1,6 +1,7 @@
 	package Views;
 	
 	import java.awt.Color;
+	import java.awt.Font;
 	import java.awt.Graphics;
 	import java.awt.Graphics2D;
 	import java.awt.Image;
@@ -21,6 +22,10 @@
 	public class Fase_1 extends JPanel implements ActionListener {
 	
 		private Image fundo;
+		private Image botao_awsd;
+		private Image botao_k;
+		private Image botao_J;
+		private Image botao_p;
 		private Player player;
 		private Timer timer;
 		private List<Enemy_1> enemy_1;
@@ -31,9 +36,21 @@
 			setFocusable(true); // Garante que o painel pode receber foco
 			requestFocusInWindow(); // Solicita o foco para o painel
 	
-			ImageIcon referencia = new ImageIcon("src\\img\\cidade.jpg");
+			ImageIcon referencia = new ImageIcon(getClass().getResource("/img/cidade.jpg"));
 			fundo = referencia.getImage();
 	
+			ImageIcon referencia_awsd = new ImageIcon(getClass().getResource("/img/WASD.png"));
+			botao_awsd = referencia_awsd.getImage();
+			
+			ImageIcon referencia_k = new ImageIcon(getClass().getResource("/img/Tecla_K.png"));
+			botao_k = referencia_k.getImage();
+			
+			ImageIcon referencia_j = new ImageIcon(getClass().getResource("/img/Tecla_J.png"));
+			botao_J = referencia_j.getImage();
+			
+			ImageIcon referencia_p = new ImageIcon(getClass().getResource("/img/Tecla_P.png"));
+			botao_p = referencia_p.getImage();
+			
 			player = new Player();
 			player.load();
 	
@@ -45,12 +62,15 @@
 			
 			emJogo = true;
 			
-			addMouseListener(new java.awt.event.MouseAdapter(){
+			
 				
+			addMouseListener(new java.awt.event.MouseAdapter(){
+			
 				public void mouseClicked(MouseEvent e) {
 					
 					int cliqueX = e.getX();
 					int cliqueY = e.getY();
+					
 					
 					if(!emJogo) {
 					
@@ -71,6 +91,7 @@
 			player.load();
 			inicializarInimigos();
 			repaint();
+			
 		}
 		
 		public void inicializarInimigos() {
@@ -91,7 +112,36 @@
 				
 	
 				graficos.drawImage(fundo, 0, 0, null);
-	
+				
+				Font fontePadrao = graficos.getFont();
+				
+				graficos.setColor(Color.magenta);
+				Font fonte = new Font("Arial", Font.BOLD, 40);
+				
+				graficos.setFont(fonte);
+				graficos.drawString("Derrote todas as maldições!", 280, 50);
+				
+				
+				Font fonte_teclas = new Font("Times New Roman", Font.BOLD, 15);
+				
+				graficos.setColor(Color.black);
+				graficos.setFont(fonte_teclas);
+				
+				graficos.drawImage(botao_awsd, 30, 40, this);
+				graficos.drawString("Movimentação",200, 110);
+				
+				graficos.drawImage(botao_J, 80, 160, this);
+				graficos.drawString("Técnica Amaldiçoada: Azul", 170, 190);
+				
+				graficos.drawImage(botao_k, 80, 230, this);
+				graficos.drawString("Boost de Velocidade(manter pressionado)", 170, 260);
+				
+				graficos.drawImage(botao_p, 65, 280, this);
+				graficos.drawString("Nova Honda de Inimigos", 170, 330);
+				
+				
+				
+				graficos.setFont(fontePadrao);
 				graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
 	
 				List<Tiro> tiros = player.getTiros();
@@ -111,7 +161,7 @@
 				
 			}
 			else {
-				ImageIcon fimJogo = new ImageIcon("src\\img\\game-over.png");
+				ImageIcon fimJogo = new ImageIcon(getClass().getResource("/img/game-over.png"));
 				graficos.drawImage(fimJogo.getImage(),350,250, null);
 				
 				graficos.setColor(Color.white);
@@ -195,11 +245,16 @@
 			public void keyPressed(KeyEvent e) {
 				player.keyPressed(e);
 				
+				int codigao = e.getKeyCode();
+				if(codigao == KeyEvent.VK_P) {
+					inicializarInimigos();
+				}
+				
 			}
 	
 			@Override
 			public void keyReleased(KeyEvent e) {
-				player.keyRelease(e);
+				player.keyReleased(e);
 				
 			}
 		}
